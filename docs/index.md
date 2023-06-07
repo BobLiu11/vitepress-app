@@ -18,6 +18,18 @@
 `{{ This will be displayed as-is }}`
 :::
 
+<test></test>
+
+<script setup>
+import test from './../components/test.vue'
+</script>
+
+<!-- ---
+{ "title": "Hello vue", "editLink": true, "sidebar": true }
+--- -->
+
+<!-- # {{ $frontmatter.title }} -->
+
 ::: tip
 This is a tip
 :::
