@@ -1,20 +1,21 @@
-module.exports = {
-  title: "Hello VitePress",
+export default {
+  title: "VitePress",
   description: "Just playing around.",
-  markdown: {
-    lineNumbers: true,
-    // options for markdown-it-anchor
-    anchor: { permalink: false },
 
-    // options for markdown-it-toc
-    toc: { includeLevel: [1, 2] },
-
-    // config: (md) => {
-    //   // use more markdown-it plugins!
-    //   md.use(require("markdown-it-xxx"));
-    // },
+  themeConfig: {
+    nav: [
+      { text: "vitePress", link: "/" },
+      { text: "vue", link: "./vue/index.md" },
+      { text: "github", link: "https://github.com/BobLiu11/vitepress-app" },
+    ],
+    // sidebar: [
+    //   {
+    //     text: "Guide",
+    //     items: [
+    //       { text: "Introduction", link: "/introduction" },
+    //       { text: "Getting Started", link: "/getting-started" },
+    //     ],
+    //   },
+    // ],
   },
-  head: [],
-  locales: {},
-  //themeConfig: $themeConfig,
 };

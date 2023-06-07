@@ -1,20 +1,13 @@
 ---
-{ 
-    "title": "Hello vue", 
-    "editLink": true, 
-    "sidebar": true 
-}
+{ "title": "Hello vue", "editLink": true, "sidebar": true }
 ---
 
 # {{ $frontmatter.title }}
 
-{{ 1 + 1 }}
-
-<span v-for="i in 3">{{ i }} </span>
-
-::: v-pre
-`{{ This will be displayed as-is }}`
+::: tip
+1、父组件给子组件的注册事件中，把自定义事件传给子组件，在子组件实例化的时候进行初始化；而浏览器原生事件是在父组件中处理
 :::
+
 
 <test></test>
 
