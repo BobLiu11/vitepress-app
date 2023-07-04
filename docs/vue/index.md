@@ -146,3 +146,6 @@ for (macroTask of macroTaskQueue) {
 微任务(micro task）有MutationObsever 和 Promise.then。
 
 宏任务耗费的时间是大于微任务的，所以在浏览器支持的情况下，优先使用微任务。如果浏览器不支持微任务，使用宏任务；但是，各种宏任务之间也有效率的不同，需要根据浏览器的支持情况，使用不同的宏任务。
+
+## 全局API篇
+1. 实例方法是将方法挂载到Vue的原型上，而全局API是直接在Vue上挂载方法。在Vue中，全局API一共有12个，分别是Vue.extend、Vue.nextTick、Vue.set、Vue.delete、Vue.directive、Vue.filter、Vue.component、Vue.use、Vue.mixin、Vue.observable、Vue.version。
