@@ -114,3 +114,35 @@ delete方法是用来解决 Vue 不能检测到属性被删除的限制
 ### 事件相关的方法
 1. $on和$emit这两个方法的内部原理是设计模式中最典型的发布订阅模式，首先定义一个事件中心，通过$on订阅事件，将事件存储在事件中心里面，然后通过$emit触发事件中心里面存储的订阅事件。
 2. 在事件中心里面，一个事件名对应的回调函数是一个数组，要想移除所有的回调函数我们只需把它对应的数组设置为null即可。
+
+### 生命周期相关的方法
+1. 与生命周期相关的实例方法有4个，分别是vm.$mount、vm.$forceUpdate、vm.$nextTick和vm.$destory。其中，$forceUpdate和$destroy方法是在lifecycleMixin函数中挂载到Vue原型上的，$nextTick方法是在renderMixin函数中挂载到Vue原型上的，而$mount方法是在跨平台的代码中挂载到Vue原型上的。
+2. 实例的重新渲染其实就是实例watcher执行了update方法
+3. vm.$nextTick 是全局 Vue.nextTick 的别名，其用法相同。将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新。它跟全局方法 Vue.nextTick 一样，不同的是回调的 this 自动绑定到调用它的实例上。
+这里就涉及到Vue中对DOM的更新策略了，Vue 在更新 DOM 时是异步执行的。只要侦听到数据变化，Vue 将开启一个事件队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个 watcher 被多次触发，只会被推入到事件队列中一次。这种在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作是非常重要的。然后，在下一个的事件循环“tick”中，Vue 刷新事件队列并执行实际 (已去重的) 工作。
+
+#### 事件循环大致分为以下几个步骤：
+
+1. 所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
+2. 主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
+3. 一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+4. 主线程不断重复上面的第三步。
+主线程的执行过程就是一个 tick，而所有的异步结果都是通过 “任务队列” 来调度。 任务队列中存放的是一个个的任务（task）。 规范中规定 task 分为两大类，分别是宏任务(macro task) 和微任务(micro task），并且每执行完一个个宏任务(macro task)后，都要去清空该宏任务所对应的微任务队列中所有的微任务(micro task），他们的执行顺序如下所示：
+
+```js
+for (macroTask of macroTaskQueue) {
+    // 1. 处理当前的宏任务
+    handleMacroTask();
+
+    // 2. 处理对应的所有微任务
+    for (microTask of microTaskQueue) {
+        handleMicroTask(microTask);
+    }
+}
+```
+在浏览器环境中，常见的
+
+宏任务(macro task) 有 setTimeout、MessageChannel、postMessage、setImmediate；
+微任务(micro task）有MutationObsever 和 Promise.then。
+
+宏任务耗费的时间是大于微任务的，所以在浏览器支持的情况下，优先使用微任务。如果浏览器不支持微任务，使用宏任务；但是，各种宏任务之间也有效率的不同，需要根据浏览器的支持情况，使用不同的宏任务。
