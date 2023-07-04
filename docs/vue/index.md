@@ -149,3 +149,6 @@ for (macroTask of macroTaskQueue) {
 
 ## 全局API篇
 1. 实例方法是将方法挂载到Vue的原型上，而全局API是直接在Vue上挂载方法。在Vue中，全局API一共有12个，分别是Vue.extend、Vue.nextTick、Vue.set、Vue.delete、Vue.directive、Vue.filter、Vue.component、Vue.use、Vue.mixin、Vue.observable、Vue.version。
+2. Vue为了性能考虑，反复调用Vue.extend其实应该返回同一个结果，只要返回结果是固定的，就可以将结果缓存，再次调用时，只需从缓存中取出结果即可。
+
+## 过滤器篇
