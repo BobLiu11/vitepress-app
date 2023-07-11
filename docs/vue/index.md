@@ -162,3 +162,22 @@ for (macroTask of macroTaskQueue) {
 最后，将解析得到的expression和filters数组通过调用wrapFilter函数将其构造成_f函数调用字符串。
 
 ## 指令篇
+| 钩子函数名称 |      触发时机             |  回调参数 |
+| -----------|:-----------:             | ----: |
+| init       | 已基于VNode创建了DOM元素   | emptyNode和VNode |
+| create     |   centered              |   $12                   |
+| activate   |   keep-alive组件被创建    |    emptyNode和innerNode |
+| insert     | VNode对应的DOM元素被插入到父节点中时被触发   | VNode |
+| prepatch   |   一个VNode即将被patch之前触发   |   oldVNode和 VNode     |
+| update     |   一个VNode更新时触发    |    oldVNode和VNode |
+| postpatch  | 一个VNode被patch完毕时触发   | oldVNode和VNode |
+| destory    |   一个VNode对应的DOM元素从DOM中移除时或者它的父元素从DOM中移除时触发   |   VNode              |
+| remove     |   一个VNode对应的DOM元素从DOM中移除时触发。与destory不同的是，如果是直接将该VNode的父元素从DOM中移除导致该元素被移除，那么不会触发    |    VNode和removeCallback |
+
+首先，我们知道了如果一个DOM节点上绑定了指令，那么在这个DOM节点所对应虚拟DOM节点进行渲染更新的时候，不但会处理节点渲染更新的逻辑，还会处理节点上指令的相关逻辑。具体处理指令逻辑的时机是在虚拟DOM渲染更新的create、update、destory阶段。
+
+接着，我们介绍了Vue对于自定义指令定义对象提供了几个钩子函数，这几个钩子函数分别对应着指令的几种状态，我们可以根据实际的需求将指令逻辑写在合适的指令状态钩子函数中，比如，我们想让指令所绑定的元素一插入到DOM中就执行指令逻辑，那我们就应该把指令逻辑写在指令的inserted钩子函数中。
+
+接着，我们逐行分析了updateDirectives函数，在该函数中就是对比新旧两份VNode上的指令列表，通过对比的异同点从而执行指令不同的钩子函数，让指令生效。
+
+最后，一句话概括就是：所谓让指令生效，其实就是在合适的时机执行定义指令时所设置的钩子函数。
