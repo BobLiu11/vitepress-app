@@ -21,8 +21,6 @@ export default {
     editLink: {
       pattern: 'https://github.com/BobLiu11/vitepress-app/blob/main/docs/:path'
     },
-    // prev:true,
-    // next:true,
     docFooter: {
       prev: '上一页',
       next: '下一页'
@@ -49,6 +47,7 @@ export default {
         items: [
           { text: "vitePress", link: "/index" },
           { text: "vue", link: "/vue/index" },
+          { text: "vue3的设计与实现", link: "/vue/vue3" },
         ],
       },
     ],
