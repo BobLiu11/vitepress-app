@@ -1,6 +1,6 @@
 export default {
   title: "VitePress",
-  titleTemplate: ":title-Custom Suffix",
+  titleTemplate: ":title-学习博客",
   description: "Just playing around.",
   head: [
     [

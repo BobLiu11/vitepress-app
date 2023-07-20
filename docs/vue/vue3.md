@@ -40,17 +40,45 @@ function bar() {
 ```js
 <body>
   <script src="vue.js"></script>
-  <script>
-    const {createApp} = Vue 
-    // ...
-  </script>
+  <script>const {createApp} = Vue // ...</script>
 </body>
 ```
-3. vue.global.js文件就是IIFE形式的资源
-4. 无论是rollup还是webpack，在寻找资源时，package.json中如果存在module字段，那会优先使用module字段指向的资源来代替main字段指向的资源。
-5. 带有-bundler字样的ESM资源是给rollup或webpack打包工具使用的，而带有-browser字样的ESM资源是直接给`<script type="module">`使用的。
-6. ESM格式的资源有两种：用于浏览器的esm-browser.js和用于打包工具的esm-bundler.js。他们的区别在于对预定义常量_DEV_的处理，前者直接将_DEV_常量替换为字面量true或false，后者将_DEV_常量替换为process.env.NODE_ENV!='production'语句。
+
+3. vue.global.js 文件就是 IIFE 形式的资源
+4. 无论是 rollup 还是 webpack，在寻找资源时，package.json 中如果存在 module 字段，那会优先使用 module 字段指向的资源来代替 main 字段指向的资源。
+5. 带有-bundler 字样的 ESM 资源是给 rollup 或 webpack 打包工具使用的，而带有-browser 字样的 ESM 资源是直接给`<script type="module">`使用的。
+6. ESM 格式的资源有两种：用于浏览器的 esm-browser.js 和用于打包工具的 esm-bundler.js。他们的区别在于对预定义常量*DEV*的处理，前者直接将*DEV*常量替换为字面量 true 或 false，后者将*DEV*常量替换为 process.env.NODE_ENV!='production'语句。
 
 ### 2.5 特性开关
 
-1. 对于用户关闭的特性开关，可以利用Tree-Shaking机制让其不包含在最终的资源中。
+1. 对于用户关闭的特性开关，可以利用 Tree-Shaking 机制让其不包含在最终的资源中。
+
+## 第 3 章 Vue.js3 的设计思路
+
+### 3.1 声明式地描述 UI
+
+1. 使用 JavaScript 对象描述 UI 的方式，就是所谓的虚拟 DOM。
+2. 一个组件渲染的内容是通过 render()渲染函数来描述的，vue.js 会根据组件的 render()函数的返回值拿到虚拟 DOM，然后把组件内容渲染出来。
+
+### 3.2 初识渲染器
+1. 渲染器的作用就是把虚拟DOM渲染成真实的DOM。
+2. 渲染器renderer的实现思路：
+- 创建元素：把vnode.tag作为标签名称来创建DOM元素。
+- 为元素添加属性和事件：遍历vnode.props对象，如果key以on字符开头，把字符on截取后再调用toLowerCase函数将事件名小写化，得到合法事件名称，最后调用addEventListener绑定事件处理函数。
+- 处理children：如果children是一个数组，递归调用renderer继续渲染，此时需要把刚刚创建的元素作为挂载点（父节点），如果children是字符串，使用createTextNode函数创建一个文本节点，并将其添加到新创建的元素内。
+
+### 3.3 组件的本质
+1. 组件是一组DOM元素的封装，这组DOM元素就是组件要渲染的内容，可以定义一个函数代表组件，而函数的返回值代表组件要渲染的内容。组件的返回值也是虚拟DOM。
+
+### 3.4 模版的工作原理
+1. 编译器的作用就是将模版编译为渲染函数，并添加到`<script>`标签块的组件对象上。
+2. 无论是使用模版还是直接手写渲染函数，对于一个组件来说，它要渲染的内容最终都是通过渲染函数产生的，然后渲染器再把渲染函数返回的虚拟DOM渲染为真实的DOM，这是模版的工作原理，也是vue.js渲染页面的流程。
+
+### 3.5 Vue.js是由各个模版组成的有机整体
+1. 虚拟DOM比模版更加灵活，但模版比虚拟DOM更加直观。
+2. 编译器是一个返回虚拟DOM的函数或对象。
+3. 渲染器是将虚拟DOM渲染成真实的DOM，通过diff算法找出更新点。
+4. 编译器和渲染器的交流媒介就是虚拟DOM，编译器通过添加属性标志，告诉渲染器怎么区分动态属性和静态属性，以及更新点。
+
+## 第 4 章 响应系统的作用与实现
+### 4.1 响应式数据与副作用函数
