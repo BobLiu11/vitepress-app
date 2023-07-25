@@ -96,3 +96,7 @@ export default { // Highlighted
 3. 禁用浏览器的cookie、storage等功能，不会保存网站设置的本地缓存。
 4. 禁用浏览器的表单自动填充功能，不会保存用户输入的表单数据。
 5. 禁用绝大部分浏览器插件功能。
+
+# get和post请求
+1. get请求的参数浏览器只支持query,
+2. post请求参数支持body和query
