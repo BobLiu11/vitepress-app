@@ -48,6 +48,7 @@ export default {
           { text: "vitePress", link: "/index" },
           { text: "vue", link: "/vue/index" },
           { text: "vue3的设计与实现", link: "/vue/vue3" },
+          { text: "面经", link: "/vue/interview" },
         ],
       },
     ],

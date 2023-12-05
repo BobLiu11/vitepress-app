@@ -1,0 +1,28 @@
+<!-- 用 css 实现如下的多列布局（类似九宫格，右下角为空）效果：父元素宽度自适应所在容器宽度，高度由子元素撑开，有不定数量的直接子元素（可以用8个演示），每一行排3 个子元素，子元素之间的水平、垂直间距为 10px ，子元素的宽度自适应父元素的宽度（(父元素宽度 - 10px * 2) / 3），子元素的高度与自身的宽度成正比（比如 2:1 ） -->
+
+<html>
+  <body>
+    <div class="container">
+      <div class="item">子元素1</div>
+      <div class="item">子元素2</div>
+      <div class="item">子元素3</div>
+      <div class="item">子元素4</div>
+      <div class="item">子元素5</div>
+      <div class="item">子元素6</div>
+      <div class="item">子元素7</div>
+      <div class="item">子元素8</div>
+    </div>
+  </body>
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .item {
+      flex: 1 1 calc((100% - 20px) / 4); /* 子元素宽度自适应父元素宽度 */
+      margin: 10px;
+      aspect-ratio: 1/2; /* 子元素的高度与自身的宽度成正比 */
+      background-color: pink;
+    }
+  </style>
+</html>
