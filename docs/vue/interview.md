@@ -653,7 +653,7 @@ console.log(printOrder([4, 5, 8])); // 输出 [2, 1, 0]
 console.log(printOrder([3, 3, 5, 3])); // 输出 [2, 3, 0, 1]
 ```
 
-## 虾皮
+## Shopee
 
 ### 1、算法题
 
@@ -784,3 +784,24 @@ function deepCopy(obj) {
 ### 7、Iterable 接口
 
 ### 8、bind call apply
+
+## 昆仑
+1. require是如何实现的
+2. proxy 的实现原理 以及reflex
+3. 双向链表如何查找是否存在环
+
+
+## 美团
+1. 题目：实现一个简单的Todo List
+
+要求：
+
+使用HTML，CSS和JavaScript实现一个简单的Todo List应用。
+用户应该能够添加新的待办事项。
+用户应该能够删除已经完成的待办事项。
+用户应该能够标记待办事项为已完成。
+用户应该能够查看所有的待办事项，无论是已完成还是未完成的。
+
+2. vue的原理
+3. http和websocket的区别
+4. 乾坤的原理
