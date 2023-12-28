@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    .span_style {
+      display: block;
+      width: 100px;
+      height: 100px;
+      border: 1px solid #040404;
+      border-radius: 50%;
+    }
+    .span_style::before {
+      display: block;
+      content: '';
+      width: 0px;
+      height: 100px;
+      border: 1px solid #040404;
+      transform:translateX(50px) rotate(45deg);
+    }
+    .span_style::after {
+      display: block;
+      content: '';
+      width: 0px;
+      height: 100px;
+      border: 1px solid #040404;
+      transform: translate(50px,-105px) rotate(-45deg);
+    }
+  </style>
+  <body>
+    <span class="span_style"></span>
+  </body>
+</html>
