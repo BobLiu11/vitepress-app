@@ -786,22 +786,39 @@ function deepCopy(obj) {
 ### 8、bind call apply
 
 ## 昆仑
-1. require是如何实现的
-2. proxy 的实现原理 以及reflex
+
+1. require 是如何实现的
+2. proxy 的实现原理 以及 reflex
 3. 双向链表如何查找是否存在环
 
-
 ## 美团
-1. 题目：实现一个简单的Todo List
+
+1. 题目：实现一个简单的 Todo List
 
 要求：
 
-使用HTML，CSS和JavaScript实现一个简单的Todo List应用。
+使用 HTML，CSS 和 JavaScript 实现一个简单的 Todo List 应用。
 用户应该能够添加新的待办事项。
 用户应该能够删除已经完成的待办事项。
 用户应该能够标记待办事项为已完成。
 用户应该能够查看所有的待办事项，无论是已完成还是未完成的。
 
-2. vue的原理
-3. http和websocket的区别
-4. 乾坤的原理
+2. vue 的原理
+3. http 和 websocket 的区别
+
+## 字节
+
+1. 乾坤的原理
+2. 伪类伪元素的区别
+3. instanceOf typeof undefined
+4. dom 和 css 的渲染过程以及合成
+5. nextTick 的实现以及原理
+
+## 宜信
+
+1. 事件委托
+2. any unknow nerve 的区别
+3. type 和 interface 的区别
+4. 0.1+0.2 === 0.3 的问题
+   使用 toPrecision()方法解决
+5. 单行隐藏、多行隐藏的问题
